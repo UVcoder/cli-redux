@@ -5,8 +5,8 @@ const path = require("path");
 const _ = require("lodash");
 
 const createAll = async (reduxPath, cmd) => {
-  console.log("path".cyan, reduxPath);
-  console.log("cmd", cmd.template);
+  console.log("requested path".cyan, reduxPath);
+  // console.log("cmd", cmd.template);
 
   // ReduxPath is require no need to check;
   // const isTemplate = cmd.template ? true : false;
@@ -15,7 +15,7 @@ const createAll = async (reduxPath, cmd) => {
   await createSelector(reduxPath);
   await createType(reduxPath);
   await createUtil(reduxPath);
-  console.log("files created!".cyan);
+  console.log("files were created!".cyan);
 };
 
 function createAction(path) {

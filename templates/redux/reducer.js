@@ -1,4 +1,4 @@
-import { CartTypes } from "./cart-type";
+import { ___typeCamel } from "./___TypeName.type";
 
 const InitState = {
   // items: [],
@@ -19,9 +19,9 @@ const InitState = {
 /**
  * @type {(state:State,action:Action)=>VoidFunction}
  */
-const cartReducer = (state = InitState, action) => {
+const ___ReducerName = (state = InitState, action) => {
   switch (action.type) {
-    case CartTypes.toggle:
+    case ___typeCamel.toggle:
       return {
         ...state
       };
@@ -30,4 +30,4 @@ const cartReducer = (state = InitState, action) => {
   }
 };
 
-export default cartReducer;
+export default ___ReducerName;

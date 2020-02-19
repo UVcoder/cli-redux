@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 
-const baseState = state => state.replace;
+const ___baseState = state => state.___fileName;
 
-export const getReplaceCap = createSelector([baseState], state => {
-  return;
+export const ___selectorName = createSelector([___baseState], state => {
+  return state;
 });

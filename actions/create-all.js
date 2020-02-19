@@ -1,51 +1,83 @@
-const createAll = async (ReduxPath, cmd) => {
-  console.log("path".cyan, ReduxPath);
+#!/usr/bin/env node
+const modifyFile = require("../node-fnc/modify-file");
+const appCliPath = require("../node-fnc/get-source-path");
+const path = require("path");
+const _ = require("lodash");
+
+const createAll = async (reduxPath, cmd) => {
+  console.log("path".cyan, reduxPath);
   console.log("cmd", cmd.template);
-  const path = require("path");
+
   // ReduxPath is require no need to check;
-  const isTemplate = cmd.template ? true : false;
-  const appCliPath = getCliPath();
-  await modifyFile(`${path.join(appCliPath, "/templates/selector.js")}`, "components/redux.selector", "", "");
+  // const isTemplate = cmd.template ? true : false;
+  await createAction(reduxPath);
+  await createReducer(reduxPath);
+  await createSelector(reduxPath);
+  await createType(reduxPath);
+  await createUtil(reduxPath);
+  console.log("files created!".cyan);
 };
-function getCliPath() {
-  //c://user/aer
-  return `${require("path").dirname(require.main.filename)}`;
+
+function createAction(path) {
+  const desPath = getDestPath(path, "action");
+  const name = getDestName(path);
+  const typeName = _.upperFirst(`${name}Type`);
+  const actionName = _.upperFirst(`${name}Toggle`);
+  const source = reduxPath.action;
+  return modifyFile(source, desPath, ["___typeCamel", "___typeName", "___actionName"], [typeName, name, actionName]);
 }
-function copyAllFiles(sourceFolder, desFolder) {
-  const fs = require("fs-extra");
-  return new Promise((resolve, reject) => {
-    fs.copySync(sourceFolder, desFolder);
-    resolve();
-  });
+function createReducer(path) {
+  const desPath = getDestPath(path, "reducer");
+  const name = getDestName(path);
+  const typeCamel = _.upperFirst(`${name}Type`);
+  const typeName = name;
+  const reduceName = _.upperFirst(`${name}Reducer`);
+  const source = reduxPath.reducer;
+  return modifyFile(
+    source,
+    desPath,
+    ["___typeCamel", "___TypeName", "___ReducerName"],
+    [typeCamel, typeName, reduceName]
+  );
+}
+function createSelector(path) {
+  const desPath = getDestPath(path, "selector");
+  const name = getDestName(path);
+  const selectorName = _.upperFirst(`${name}GetState`);
+  const source = reduxPath.selector;
+  return modifyFile(
+    source,
+    desPath,
+    ["___baseState", "___fileName", "___selectorName"],
+    ["baseState", name, selectorName]
+  );
+}
+function createType(path) {
+  const desPath = getDestPath(path, "type");
+  const name = _.upperFirst(`${getDestName(path)}Type`);
+  const source = reduxPath.type;
+  return modifyFile(source, desPath, ["___type"], [name]);
+}
+function createUtil(path) {
+  const desPath = getDestPath(path, "util");
+  const source = reduxPath.util;
+  return modifyFile(source, desPath, [""], [""]);
 }
 
-function modifyFile(sourcePath, outPath, fromString, toString) {
-  const fs = require("fs-extra");
-  const replace = require("replace");
-  if (!fs.existsSync(sourcePath)) {
-    console.log(`can't find ${sourcePath}`.red);
-    process.exit(1);
-  }
-  return new Promise((resolve, reject) => {
-    fs.readFile(sourcePath, "utf8", function(err, data) {
-      if (err) {
-        return console.log(err);
-      }
-      fs.outputFile(sourcePath, data, err => {
-        if (err) throw err;
-
-        // replace filename
-        replace({
-          regex: fromString,
-          replacement: toString,
-          paths: [`${outPath}`],
-          recursive: false,
-          silent: true
-        });
-        resolve();
-      });
-    });
-  });
+const reduxPath = {
+  action: `${path.join(appCliPath, "/templates/redux/action.js")}`,
+  reducer: `${path.join(appCliPath, "/templates/redux/reducer.js")}`,
+  selector: `${path.join(appCliPath, "/templates/redux/selector.js")}`,
+  type: `${path.join(appCliPath, "/templates/redux/type.js")}`,
+  util: `${path.join(appCliPath, "/templates/redux/util.js")}`
+};
+function getDestPath(path, tailing) {
+  const folder = path.split("/");
+  const name = folder[folder.length - 1].toLocaleLowerCase();
+  return `./src/${path}/${name}.${tailing}.js`;
 }
-
+function getDestName(path) {
+  const folder = path.split("/");
+  return folder[folder.length - 1].toLocaleLowerCase();
+}
 module.exports = createAll;

@@ -1,11 +1,12 @@
 # redux-cli
 
 it takes hundred of files talking to each others,
-so that your application can be aware of a uer click on a red button.
-redux cli will help u create boilerplate files.
+so that your application can be aware of a user click on a red button.
+<br>redux cli will help u create boilerplate files.
 
-the thing is these files are generated base on my own requirement.
+the thing is these files are generated base on my own need.
 any suggestion visit:
+
 https://github.com/UVcoder/redux-cli
 
 ## Command
@@ -16,6 +17,7 @@ Run
 
 <br>
 Example
+
 > `vredux all redux/users`
 
 this will create the following files,

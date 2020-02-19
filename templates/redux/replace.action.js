@@ -1,7 +1,7 @@
 import { CartTypes } from "./cart-type";
 
 /**
- * @type {(initState:boolean)=>{type:string}}
+ * @type {(initState:boolean)=>{type:string,payload:any}}
  */
 export const cartActionToggle = item => {
   return {

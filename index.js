@@ -1,6 +1,6 @@
 const program = require("commander");
-const shell = require("shelljs");
-const fs = require("fs-extra");
+// const shell = require("shelljs");
+
 const colors = require("colors");
 const replace = require("replace");
 

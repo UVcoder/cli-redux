@@ -9,6 +9,10 @@ any suggestion visit:
 
 https://github.com/UVcoder/redux-cli
 
+## install
+
+> `npm i -g vredux-cli`
+
 ## Command
 
 Run

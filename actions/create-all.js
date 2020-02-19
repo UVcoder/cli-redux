@@ -3,17 +3,17 @@ const appCliPath = require("../node-fnc/get-source-path");
 const path = require("path");
 const _ = require("lodash");
 
-const createAll = async (reduxPath, cmd) => {
-  console.log("requested path".cyan, reduxPath);
+const createAll = async (userPath, cmd) => {
+  console.log("requested path".cyan, userPath);
   // console.log("cmd", cmd.template);
 
-  // ReduxPath is require no need to check;
+  // userPath is require no need to check;
   // const isTemplate = cmd.template ? true : false;
-  await createAction(reduxPath);
-  await createReducer(reduxPath);
-  await createSelector(reduxPath);
-  await createType(reduxPath);
-  await createUtil(reduxPath);
+  await createAction(userPath);
+  await createReducer(userPath);
+  await createSelector(userPath);
+  await createType(userPath);
+  await createUtil(userPath);
   console.log("files were created!".cyan);
 };
 

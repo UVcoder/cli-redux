@@ -1,5 +1,5 @@
 {
-  "name": "redux-cli",
+  "name": "vredux-cli",
   "version": "1.0.0",
   "description": "simple redux cli",
   "main": "index.js",

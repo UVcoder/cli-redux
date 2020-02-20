@@ -124,3 +124,13 @@ export const UsersType = {
 //   return [...existingItems, itemToBeAdded];
 // };
 ```
+
+## bug-fix
+
+### v1.0.2
+
+abort if there is existed file
+
+### v1.0.3
+
+fixed title case & camel case

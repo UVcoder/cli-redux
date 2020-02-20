@@ -7,6 +7,10 @@ function modifyFile(sourcePath, outPath, find, replace) {
     console.log(`can't find ${sourcePath}`.red);
     process.exit(1);
   }
+  if (fs.existsSync(outPath)) {
+    console.log(`file is already existed at "${outPath}"`.red);
+    process.exit(1);
+  }
   return new Promise((resolve, reject) => {
     fs.readFile(sourcePath, "utf8", function(err, data) {
       if (err) {

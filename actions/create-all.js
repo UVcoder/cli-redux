@@ -1,9 +1,10 @@
 const modifyFile = require("../node-fnc/modify-file");
-const appCliPath = require("../node-fnc/get-source-path");
+const appCliPath = require("../node-fnc/get-source-path")();
 const path = require("path");
-const _ = require("lodash");
+// const _ = require("lodash");
+const titleCase = require("../node-fnc/title-case");
 
-const createAll = async (userPath, cmd) => {
+const createRedux = async (userPath, cmd) => {
   console.log("requested path".cyan, userPath);
   // console.log("cmd", cmd.template);
 
@@ -20,17 +21,17 @@ const createAll = async (userPath, cmd) => {
 function createAction(path) {
   const desPath = getDestPath(path, "action");
   const name = getDestName(path);
-  const typeName = _.upperFirst(`${name}Type`);
-  const actionName = _.upperFirst(`${name}Toggle`);
+  const typeName = titleCase(`${name}Type`);
+  const actionName = titleCase(`${name}Toggle`);
   const source = reduxPath.action;
   return modifyFile(source, desPath, ["___typeCamel", "___typeName", "___actionName"], [typeName, name, actionName]);
 }
 function createReducer(path) {
   const desPath = getDestPath(path, "reducer");
   const name = getDestName(path);
-  const typeCamel = _.upperFirst(`${name}Type`);
+  const typeCamel = titleCase(`${name}Type`);
   const typeName = name;
-  const reduceName = _.upperFirst(`${name}Reducer`);
+  const reduceName = titleCase(`${name}Reducer`);
   const source = reduxPath.reducer;
   return modifyFile(
     source,
@@ -42,7 +43,7 @@ function createReducer(path) {
 function createSelector(path) {
   const desPath = getDestPath(path, "selector");
   const name = getDestName(path);
-  const selectorName = _.upperFirst(`${name}GetState`);
+  const selectorName = titleCase(`${name}GetState`);
   const source = reduxPath.selector;
   return modifyFile(
     source,
@@ -53,7 +54,7 @@ function createSelector(path) {
 }
 function createType(path) {
   const desPath = getDestPath(path, "type");
-  const name = _.upperFirst(`${getDestName(path)}Type`);
+  const name = titleCase(`${getDestName(path)}Type`);
   const source = reduxPath.type;
   return modifyFile(source, desPath, ["___type"], [name]);
 }
@@ -79,4 +80,4 @@ function getDestName(path) {
   const folder = path.split("/");
   return folder[folder.length - 1].toLocaleLowerCase();
 }
-module.exports = createAll;
+module.exports = createRedux;

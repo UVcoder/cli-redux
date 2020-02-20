@@ -3,4 +3,4 @@ function getSourcePath() {
   return `${require("path").dirname(require.main.filename)}`;
 }
 
-module.exports = getSourcePath();
+module.exports = getSourcePath;

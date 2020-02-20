@@ -1,7 +1,7 @@
 const modifyFile = require("../node-fnc/modify-file");
 const appCliPath = require("../node-fnc/get-source-path")();
 const path = require("path");
-// const _ = require("lodash");
+const _ = require("lodash");
 const titleCase = require("../node-fnc/title-case");
 
 const createRedux = async (userPath, cmd) => {
@@ -43,13 +43,14 @@ function createReducer(path) {
 function createSelector(path) {
   const desPath = getDestPath(path, "selector");
   const name = getDestName(path);
+  const nameCamel = _.camelCase(name);
   const selectorName = titleCase(`${name}GetState`);
   const source = reduxPath.selector;
   return modifyFile(
     source,
     desPath,
-    ["___baseState", "___fileName", "___selectorName"],
-    ["baseState", name, selectorName]
+    ["___baseState", "___fileNameCamel", "___selectorName"],
+    ["baseState", nameCamel, selectorName]
   );
 }
 function createType(path) {

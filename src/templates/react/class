@@ -1,0 +1,16 @@
+import React from "react";
+import ___module "./___className-___cssTail";
+// import PropTypes from 'prop-types';
+
+class ___ClassName extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return <div className=___quoteLeft___style___classNameCamel___quoteRight></div>;
+  }
+}
+// ___ClassName.propTypes = {};
+
+export default ___ClassName;

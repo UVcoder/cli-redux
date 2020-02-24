@@ -3,19 +3,21 @@ const appCliPath = require("../node-fnc/get-source-path")();
 const path = require("path");
 const _ = require("lodash");
 const titleCase = require("../node-fnc/title-case");
+const escapePathName = require("../node-fnc/escape-pathname");
 
 const createRedux = async (userPath, cmd) => {
-  console.log("requested path".cyan, userPath);
+  userPath = escapePathName(userPath);
+  console.log(`received requested file at ./src/${userPath}`.cyan);
   // console.log("cmd", cmd.template);
 
-  // userPath is require no need to check;
+  // console.log("redux path", reduxPath);
   // const isTemplate = cmd.template ? true : false;
   await createAction(userPath);
   await createReducer(userPath);
   await createSelector(userPath);
   await createType(userPath);
   await createUtil(userPath);
-  console.log("files were created!".cyan);
+  console.log("files created!".cyan);
 };
 
 function createAction(path) {
@@ -72,10 +74,10 @@ const reduxPath = {
   type: `${path.join(appCliPath, "/templates/redux/type.js")}`,
   util: `${path.join(appCliPath, "/templates/redux/util.js")}`
 };
-function getDestPath(path, tailing) {
-  const folder = path.split("/");
+function getDestPath(filePath, tailing) {
+  const folder = filePath.split("/");
   const name = folder[folder.length - 1].toLocaleLowerCase();
-  return `./src/${path}/${name}.${tailing}.js`;
+  return path.join(`./src/${filePath}/${name}.${tailing}.js`);
 }
 function getDestName(path) {
   const folder = path.split("/");

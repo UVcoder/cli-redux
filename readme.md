@@ -9,6 +9,14 @@ any suggestion visit:
 
 https://github.com/UVcoder/redux-cli
 
+## Note\*
+
+this redux-cli is a sub-set of cli-uv;<br>
+if you want to include all the features, pls visit; <br>
+https://www.npmjs.com/package/cli-uv <br>
+or
+https://github.com/UVcoder/cli-uv
+
 ## install
 
 > `npm i -g vredux-cli`
@@ -134,3 +142,10 @@ abort if there is existed file
 ### v1.0.3
 
 fixed title case & camel case
+
+### v1.2.0
+
+fixed escape file system name<br>
+name: admin+user -> admin-user
+name: admin[user -> admin-user
+....
